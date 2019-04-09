@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b0ddb9fafa9f84e9e237fd059074db, type: 3}
+  m_Name: Default Tower
+  m_EditorClassIdentifier: 
+  TowerPrefab: {fileID: 2100859465461549943, guid: 6f2c4d5ef8bed5d4a9b98c3229b4af3f,
+    type: 3}
+  TowerPreviewPrefab: {fileID: 4312154183591426113, guid: b78d17d9551afbf4bab9cefe0430cf73,
+    type: 3}
+  ProjectilePrefab: {fileID: 1821330523211111301, guid: d0dad9b2b5fc6b145a6dca826852f5ee,
+    type: 3}
+  Range: 10
+  FireRate: 1
+  Damage: 50
+  ProjectileSpeed: 50
