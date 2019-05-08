@@ -20,5 +20,5 @@ MonoBehaviour:
     type: 3}
   Range: 10
   FireRate: 1
-  Damage: 50
+  Damage: 1
   ProjectileSpeed: 50

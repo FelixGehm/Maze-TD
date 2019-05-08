@@ -26,22 +26,22 @@ public class TowerPreviewUI : MonoBehaviour
 		_cannotPlaceColor = new Color(255, 0, 0);
 	}
 
-	private void Start()
-	{
-		_towerPreview.StateChanged += UpdateIndicator;
-		UpdateIndicator();
-	}
+	//private void Start()
+	//{
+	//	_towerPreview.StateChanged += UpdateIndicator;
+	//	UpdateIndicator();
+	//}
 
-	private void OnDestroy()
-	{
-		_towerPreview.StateChanged -= UpdateIndicator;
-	}
+	//private void OnDestroy()
+	//{
+	//	_towerPreview.StateChanged -= UpdateIndicator;
+	//}
 
-	private void UpdateIndicator()
-	{
-		if (_towerPreview.CanPlace)
-			_placeIndicatorImg.color = _canPlaceColor;
-		else
-			_placeIndicatorImg.color = _cannotPlaceColor;
-	}
+	//private void UpdateIndicator()
+	//{
+	//	if (_towerPreview.CanPlace)
+	//		_placeIndicatorImg.color = _canPlaceColor;
+	//	else
+	//		_placeIndicatorImg.color = _cannotPlaceColor;
+	//}
 }
