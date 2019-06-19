@@ -30,19 +30,35 @@ public class NodeManager : MonoBehaviour
 
 	public void FillNode(Node node, TowerSettings t)
 	{
+		if (node.Tower != null)
+		{
+			Debug.LogWarning("Cannot place 2 towers at the same node");
+			return;
+		}
+
+
 		node.SetTower(t);
 		FilledNodes.Add(node);
 	}
 
-	public void DepleteNode(Node node, Tower t)
+	public void DepleteNode(Node node)
 	{
+		if (node.Tower != null)
+			Destroy(node.Tower.gameObject);
+
 		node.SetTower(null);
 		FilledNodes.Remove(node);
 	}
 
+	public void DepleteAllNodes()
+	{
+		foreach (Node node in Nodes)
+			DepleteNode(node);
+	}
+
 	public void HighlightEmptyNodes(bool b)
 	{
-		foreach(Node n in Nodes)
+		foreach (Node n in Nodes)
 		{
 			if (b && n.IsEmpty)
 				n.Highlight(b, _highlightColor);

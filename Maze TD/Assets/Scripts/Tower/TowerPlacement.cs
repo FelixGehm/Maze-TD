@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TowerPlacement : MonoBehaviour
 {
+	[SerializeField]
+	private LayerMask _mask;
+
 	private TowerSettings _towerSettings;
 	private TowerPreview _towerPreviewInstance;
 	private Collider _currentCollider;
@@ -34,7 +37,7 @@ public class TowerPlacement : MonoBehaviour
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 		RaycastHit hit;
-		if (Physics.Raycast(ray, out hit))
+		if (Physics.Raycast(ray, out hit, _mask))
 		{
 			if (hit.collider.tag == "Node")
 			{

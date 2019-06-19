@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,6 +16,13 @@ public class Enemy : MonoBehaviour
 	private Vector3 _destination;
 	private bool _hasDestination;
 
+	public Action DestinationReached;
+
+	public EnemyStats Stats
+	{
+		get { return _stats; }
+	}
+
 	public void SetDestination(Vector3 destination)
 	{
 		_hasDestination = true;
@@ -27,6 +35,11 @@ public class Enemy : MonoBehaviour
 		_stats.TakeDamage(dmg);
 	}
 
+	public bool HasPath()
+	{
+		return _agent.hasPath;
+	}
+
 	private void Reset()
 	{
 		_stats = GetComponent<EnemyStats>();
@@ -36,12 +49,13 @@ public class Enemy : MonoBehaviour
 	private void Start()
 	{
 		NavMeshControl.Instance.OnNavMeshChanged += UpdateDestination;
+		_agent.speed = _stats.Speed;
 	}
 
 	private void Update()
 	{
 		//Stattdessen Endzone mit OnTriggerEnter?
-		if(transform.position.z <= _destination.z + 0.2f)
+		if (transform.position.z <= _destination.z + 0.2f)
 		{
 			OnDestinationReached();
 		}
@@ -55,6 +69,7 @@ public class Enemy : MonoBehaviour
 
 	private void OnDestinationReached()
 	{
+		DestinationReached?.Invoke();
 		PlayerStats.Instance.Hitpoints--;
 		Destroy(gameObject);
 	}

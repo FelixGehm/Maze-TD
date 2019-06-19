@@ -67,7 +67,7 @@ public class TowerStats : MonoBehaviour, INotifyPropertyChanged
 	public void Init(float range, float fireRate, int dmg, float projectileSpeed)
 	{
 		Range = range;
-		FireRate = FireRate;
+		FireRate = fireRate;
 		Damage = dmg;
 		ProjectileSpeed = projectileSpeed;
 	}

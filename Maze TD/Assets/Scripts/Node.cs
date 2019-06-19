@@ -8,6 +8,11 @@ public class Node : MonoBehaviour
 	[SerializeField]
 	private Image _indicatorImg;
 
+	[SerializeField]
+	private int _index;
+
+	public int Index { get { return _index; } }
+
 	private void Start()
 	{
 		NodeManager.Instance.RegisterNode(this);
@@ -19,6 +24,12 @@ public class Node : MonoBehaviour
 
 	public void SetTower(TowerSettings t)
 	{
+		if (t == null)
+		{
+			Tower = null;
+			return;
+		}
+
 		Tower = t.SpawnTower(transform.position, transform.rotation);
 	}
 

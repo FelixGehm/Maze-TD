@@ -35,7 +35,7 @@ public class Tower : MonoBehaviour
 	private void Start()
 	{
 		_enemyUnits = GameManager.Instance.EnemyUnits;
-		InvokeRepeating("UpdateTarget", 0f, 0.5f);
+		InvokeRepeating("UpdateTarget", 0f, 0.1f);
 	}
 
 	private void Update()
