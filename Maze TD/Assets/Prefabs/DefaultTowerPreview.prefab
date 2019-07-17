@@ -119,7 +119,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ef8803868ebcd0b41a44f6f844634434, type: 2}
+  - {fileID: 2100000, guid: eafa4cb7089ea954da23d50a10669e5e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -196,7 +196,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ef8803868ebcd0b41a44f6f844634434, type: 2}
+  - {fileID: 2100000, guid: eafa4cb7089ea954da23d50a10669e5e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 4312154183591426113}
   - component: {fileID: 600517228402279467}
   m_Layer: 2
-  m_Name: ph_Tower Preview
+  m_Name: DefaultTowerPreview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

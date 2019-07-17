@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b0ddb9fafa9f84e9e237fd059074db, type: 3}
+  m_Name: AoE Tower
+  m_EditorClassIdentifier: 
+  TowerPrefab: {fileID: 2100859465461549943, guid: da67ff3c3c259734f99ba286afb79b2e,
+    type: 3}
+  TowerPreviewPrefab: {fileID: 4312154183591426113, guid: f4edd6295435ac446a4c76630191c4bc,
+    type: 3}
+  ProjectilePrefab: {fileID: 5509330537888797648, guid: db03305aaa6e9fc438bff0eb4a7b5628,
+    type: 3}
+  Range: 20
+  FireRate: 5
+  Damage: 1
+  ProjectileSpeed: 500
+  AoERadius: 5
+  CCTime: 0

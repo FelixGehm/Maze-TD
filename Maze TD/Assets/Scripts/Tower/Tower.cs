@@ -23,7 +23,7 @@ public class Tower : MonoBehaviour
 
 	public void Init(TowerSettings settings)
 	{
-		_stats.Init(settings.Range, settings.FireRate, settings.Damage, settings.ProjectileSpeed);
+		_stats.Init(settings.Range, settings.FireRate, settings.Damage, settings.ProjectileSpeed, settings.AoERadius, settings.CCTime);
 		_projectilePrefab = settings.ProjectilePrefab;
 	}
 
@@ -64,7 +64,7 @@ public class Tower : MonoBehaviour
 	private void Fire()
 	{
 		Projectile projectileGO = Instantiate(_projectilePrefab, __firePoint.position, __firePoint.rotation);
-		projectileGO.Init(_target, _stats.Damage, _stats.ProjectileSpeed);
+		projectileGO.Init(_target, _stats.Damage, _stats.ProjectileSpeed, _stats.AoERadius, _stats.CCTime);
 	}
 
 	private void UpdateTarget()

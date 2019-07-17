@@ -9,6 +9,8 @@ public class TowerStats : MonoBehaviour, INotifyPropertyChanged
 	private float _fireRate = 1;
 	private int _dmg = 50;
 	private float _projectileSpeed = 50;
+	private float _aoeRadius;
+	private float _ccTime;
 
 	public event PropertyChangedEventHandler PropertyChanged;
 
@@ -64,12 +66,40 @@ public class TowerStats : MonoBehaviour, INotifyPropertyChanged
 		}
 	}
 
-	public void Init(float range, float fireRate, int dmg, float projectileSpeed)
+	public float AoERadius
+	{
+		get
+		{
+			return _aoeRadius;
+		}
+		private set
+		{
+			_aoeRadius = value;
+			OnPropertyChanged("AoERadius");
+		}
+	}
+
+	public float CCTime
+	{
+		get
+		{
+			return _ccTime;
+		}
+		private set
+		{
+			_ccTime = value;
+			OnPropertyChanged("CCTime");
+		}
+	}
+
+	public void Init(float range, float fireRate, int dmg, float projectileSpeed, float aoeRadius, float ccTime)
 	{
 		Range = range;
 		FireRate = fireRate;
 		Damage = dmg;
 		ProjectileSpeed = projectileSpeed;
+		AoERadius = aoeRadius;
+		CCTime = ccTime;
 	}
 
 	private void OnPropertyChanged(string name)

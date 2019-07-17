@@ -20,4 +20,6 @@ public class Settings : MonoBehaviour
 	public PlayerSettings PlayerSettings;
 	public WaveSettings WaveSettings;
 	public TowerSettings DefaultTower;
+	public TowerSettings AoeTower;
+	public TowerSettings CcTower;
 }

@@ -275,6 +275,7 @@ GameObject:
   - component: {fileID: 6955238750672905029}
   - component: {fileID: 6955238750672905050}
   - component: {fileID: 7314021412194260692}
+  - component: {fileID: 6716035873337157669}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -360,6 +361,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stats: {fileID: 6955238750672905029}
   _healthbarImg: {fileID: 7130169828335421404}
+--- !u!136 &6716035873337157669
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6955238750672905051}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &7362005049265101177
 GameObject:
   m_ObjectHideFlags: 0

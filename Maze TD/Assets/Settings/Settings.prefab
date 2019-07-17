@@ -47,3 +47,5 @@ MonoBehaviour:
   PlayerSettings: {fileID: 11400000, guid: f98bd52fd80471b4f998777891481835, type: 2}
   WaveSettings: {fileID: 11400000, guid: 2567a88dfaf7df742a3f0edb67617966, type: 2}
   DefaultTower: {fileID: 11400000, guid: b352522e825f97343912755fcb39e001, type: 2}
+  AoeTower: {fileID: 11400000, guid: 541b18b5a01118c40a6b1f02f05f68ca, type: 2}
+  CcTower: {fileID: 11400000, guid: c33fcf8fa30f5284c818e46422a5c627, type: 2}

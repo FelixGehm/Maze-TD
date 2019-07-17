@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
 
 	private Vector3 _destination;
 	private bool _hasDestination;
+	private bool _isCC = false;
 
 	public Action DestinationReached;
 
@@ -33,6 +34,26 @@ public class Enemy : MonoBehaviour
 	public void TakeDamage(int dmg)
 	{
 		_stats.TakeDamage(dmg);
+	}
+
+	public void Slow(float slowPercent, float slowTime)
+	{
+		if (_isCC)
+			return;
+
+		float defaultSpeed = _stats.Speed;
+		_stats.Speed = defaultSpeed * (1 - slowPercent);
+		_agent.speed = _stats.Speed;                    //TODO: agent speed automatisch mit stats synchronisieren
+		_isCC = true;
+		StartCoroutine(ResetSpeed(defaultSpeed, slowTime));
+	}
+
+	private IEnumerator ResetSpeed(float speed, float slowTime)
+	{
+		yield return new WaitForSeconds(slowTime);
+		_stats.Speed = speed;
+		_agent.speed = _stats.Speed;
+		_isCC = false;
 	}
 
 	public bool HasPath()

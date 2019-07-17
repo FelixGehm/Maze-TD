@@ -30,7 +30,7 @@ public class EnemyStats : MonoBehaviour, INotifyPropertyChanged
 		{
 			return _speed;
 		}
-		private set
+		set
 		{
 			_speed = value;
 			OnPropertyChanged("Speed");

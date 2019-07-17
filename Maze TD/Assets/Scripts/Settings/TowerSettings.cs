@@ -13,6 +13,8 @@ public class TowerSettings : ScriptableObject
 	public float FireRate;
 	public int Damage;
 	public float ProjectileSpeed;
+	public float AoERadius;
+	public float CCTime;
 
 	public TowerPreview SpawnPreview(Vector3 position)
 	{
