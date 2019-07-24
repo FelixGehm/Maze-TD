@@ -18,6 +18,10 @@ namespace GeneticAlgorithmAdvanced
 			for (int i = 0; i < Genes.Length; i++)
 			{
 				int randomIndex = UnityEngine.Random.Range(0, nodes);
+				while (DoesGeneExist(Genes, randomIndex))
+				{
+					randomIndex = UnityEngine.Random.Range(0, nodes);
+				}
 				Genes[i] = randomIndex;
 			}
 		}
@@ -36,10 +40,18 @@ namespace GeneticAlgorithmAdvanced
 			int crossover = UnityEngine.Random.Range(0, Genes.Length);
 			for (int i = 0; i < Genes.Length; i++)
 			{
+				int newGene;
 				if (i > crossover)
-					child[i] = Genes[i];
+					newGene = Genes[i];
 				else
-					child[i] = partner.Genes[i];
+					newGene = partner.Genes[i];
+
+				while(DoesGeneExist(child, newGene))
+				{
+					newGene = UnityEngine.Random.Range(0, Genes.Length);
+				}
+
+				child[i] = newGene;
 			}
 			DNA newDNA = new DNA(child);
 			return newDNA;
@@ -58,6 +70,16 @@ namespace GeneticAlgorithmAdvanced
 		{
 			//genes.Sort((x, y) => x.Index.CompareTo(y.Index));
 			Array.Sort(Genes, (x, y) => x.CompareTo(y));
+		}
+
+		private bool DoesGeneExist(int[] genes, int gene)
+		{
+			foreach (var g in genes)
+			{
+				if (g == gene)
+					return true;
+			}
+			return false;
 		}
 	}
 }

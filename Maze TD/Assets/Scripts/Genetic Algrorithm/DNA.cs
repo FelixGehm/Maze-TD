@@ -19,6 +19,11 @@ public class DNA
 		for (int i = 0; i < Genes.Length; i++)
 		{
 			int randomIndex = UnityEngine.Random.Range(0, _allNodes.Count);
+			while(DoesGeneExist(Genes, _allNodes[randomIndex]))
+			{
+				randomIndex = UnityEngine.Random.Range(0, _allNodes.Count);
+			}
+
 			Genes[i] = _allNodes[randomIndex];
 		}
 	}
@@ -38,10 +43,17 @@ public class DNA
 		int crossover = UnityEngine.Random.Range(0, Genes.Length);
 		for (int i = 0; i < Genes.Length; i++)
 		{
+			Node newGene;
 			if (i > crossover)
-				child[i] = Genes[i];
+				newGene = Genes[i];
 			else
-				child[i] = partner.Genes[i];
+				newGene = partner.Genes[i];
+
+			while(DoesGeneExist(child, newGene))
+			{
+				newGene = _allNodes[UnityEngine.Random.Range(0, _allNodes.Count)];
+			}
+			child[i] = newGene;
 		}
 		DNA newDNA = new DNA(child, _allNodes);
 		return newDNA;
@@ -60,5 +72,15 @@ public class DNA
 	{
 		//genes.Sort((x, y) => x.Index.CompareTo(y.Index));
 		Array.Sort(Genes, (x, y) => x.Index.CompareTo(y.Index));
+	}
+
+	private bool DoesGeneExist(Node[] genes, Node gene)
+	{
+		foreach (var g in genes)
+		{
+			if (g == gene)
+				return true;
+		}
+		return false;
 	}
 }
