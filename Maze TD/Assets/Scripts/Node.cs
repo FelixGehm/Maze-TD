@@ -11,11 +11,16 @@ public class Node : MonoBehaviour
 	[SerializeField]
 	private int _index;
 
+	[SerializeField]
+	private NodeManager _nodeManager;
+	[SerializeField]
+	private GameManager _gameManager;
+
 	public int Index { get { return _index; } }
 
 	private void Start()
 	{
-		NodeManager.Instance.RegisterNode(this);
+		_nodeManager.RegisterNode(this);
 	}
 
 	public Tower Tower { get; private set; }
@@ -30,7 +35,18 @@ public class Node : MonoBehaviour
 			return;
 		}
 
-		Tower = t.SpawnTower(transform.position, transform.rotation);
+		Tower = t.SpawnTower(transform.position, transform.rotation, _gameManager);
+	}
+
+	public void SetTower(TowerSettings t, Transform parent)
+	{
+		if (t == null)
+		{
+			Tower = null;
+			return;
+		}
+
+		Tower = t.SpawnTower(transform.position, transform.rotation, _gameManager, parent);
 	}
 
 	public void Highlight(bool b, Color c)

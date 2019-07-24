@@ -6,11 +6,21 @@ public class TowerPlacement : MonoBehaviour
 {
 	[SerializeField]
 	private LayerMask _mask;
+	[SerializeField]
+	private NavMeshControl _navMeshControl;
+	[SerializeField]
+	private NodeManager _nodeManager;
 
 	private TowerSettings _towerSettings;
 	private TowerPreview _towerPreviewInstance;
 	private Collider _currentCollider;
 	private Node _currentNode;
+
+	private void Reset()
+	{
+		_navMeshControl = GetComponent<NavMeshControl>();
+		_nodeManager = GetComponent<NodeManager>();
+	}
 
 	private void Update()
 	{
@@ -24,7 +34,7 @@ public class TowerPlacement : MonoBehaviour
 	{
 		_towerSettings = towerSettings;
 		_towerPreviewInstance = towerSettings.SpawnPreview(new Vector3(0, 0, 0));
-		NodeManager.Instance.HighlightEmptyNodes(true);
+		_nodeManager.HighlightEmptyNodes(true);
 	}
 
 	public void CancelPlacing()
@@ -41,12 +51,12 @@ public class TowerPlacement : MonoBehaviour
 		{
 			if (hit.collider.tag == "Node")
 			{
-				if(hit.collider != _currentCollider)
+				if (hit.collider != _currentCollider)
 				{
 					_currentCollider = hit.collider;
 					_towerPreviewInstance.transform.position = hit.collider.transform.position;
 					_currentNode = hit.collider.GetComponent<Node>();
-				}			
+				}
 			}
 		}
 		PlaceOnClick();
@@ -56,12 +66,12 @@ public class TowerPlacement : MonoBehaviour
 	{
 		if (place)
 		{
-			NodeManager.Instance.FillNode(_currentNode, _towerSettings);
-			NavMeshControl.Instance.BakeNavMesh();
+			_nodeManager.FillNode(_currentNode, _towerSettings);
+			_navMeshControl.BakeNavMesh();
 		}
 		Destroy(_towerPreviewInstance.gameObject);
 		_towerPreviewInstance = null;
-		NodeManager.Instance.HighlightEmptyNodes(false);
+		_nodeManager.HighlightEmptyNodes(false);
 	}
 
 	private void PlaceOnClick()

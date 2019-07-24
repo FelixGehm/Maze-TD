@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour, INotifyPropertyChanged
 {
+	[SerializeField]
+	private NavMeshControl _navMeshControl;
+	[SerializeField]
+	private GameManager _gameManager;
+
 	private WaveSettings _settings;
 	private int nrOfEnemies = 0;
 
@@ -39,7 +44,11 @@ public class WaveSpawner : MonoBehaviour, INotifyPropertyChanged
 		}
 	}
 
-	
+	private void Reset()
+	{
+		_navMeshControl = GetComponent<NavMeshControl>();
+		_gameManager = GetComponent<GameManager>();
+	}
 
 	private void Start()
 	{
@@ -71,7 +80,8 @@ public class WaveSpawner : MonoBehaviour, INotifyPropertyChanged
 	private void SpawnEnemy()
 	{
 		Enemy enemyInstance = Instantiate(_settings.EnemyPrefab, _settings.SpawnPosition, _settings.EnemyPrefab.transform.rotation);
-		GameManager.Instance.RegisterEnemyUnit(enemyInstance);
+		_gameManager.RegisterEnemyUnit(enemyInstance);
+		enemyInstance.Init(_navMeshControl, _gameManager);
 		enemyInstance.SetDestination(_settings.Destination);
 	}
 

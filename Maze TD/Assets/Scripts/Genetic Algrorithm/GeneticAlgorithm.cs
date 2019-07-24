@@ -8,6 +8,17 @@ public class GeneticAlgorithm : MonoBehaviour
 	public enum GAState { PlaceTowers, TestFitness, WaitingForResult, NewGeneration, Idle }
 
 	[SerializeField]
+	private Transform _waveStart, _waveEnd;
+
+
+	[SerializeField]
+	private NavMeshControl _navMeshControl;
+	[SerializeField]
+	private NodeManager _nodeManager;
+	[SerializeField]
+	private GameManager _gameManager;
+
+	[SerializeField]
 	private float _mutationRate;
 	[SerializeField]
 	private int _populationSize;
@@ -25,7 +36,11 @@ public class GeneticAlgorithm : MonoBehaviour
 	private WaveSettings _waveSettings;
 	private Enemy _enemy;
 
-
+	private void Reset()
+	{
+		_navMeshControl = GetComponent<NavMeshControl>();
+		_nodeManager = GetComponent<NodeManager>();
+	}
 
 	private void Start()
 	{
@@ -35,6 +50,9 @@ public class GeneticAlgorithm : MonoBehaviour
 
 	private void Update()
 	{
+		if (Input.GetKeyUp(KeyCode.N))
+			Initilise();
+
 		switch (CurrentState)
 		{
 			case GAState.PlaceTowers:
@@ -57,7 +75,7 @@ public class GeneticAlgorithm : MonoBehaviour
 
 	public void Initilise()
 	{
-		Population = new Population(_mutationRate, _populationSize, _nrOfTowers);
+		Population = new Population(_mutationRate, _populationSize, _nrOfTowers, _nodeManager.Nodes);
 		CurrentState = GAState.PlaceTowers;
 
 		_waveSettings = Settings.Instance.WaveSettings;
@@ -76,11 +94,12 @@ public class GeneticAlgorithm : MonoBehaviour
 	//start a cycle to test the fintess of the current dna.
 	private void TestFitness()
 	{
-		Enemy enemyInstance = Instantiate(_waveSettings.EnemyPrefab, _waveSettings.SpawnPosition, _waveSettings.EnemyPrefab.transform.rotation);
+		Enemy enemyInstance = Instantiate(_waveSettings.EnemyPrefab, _waveStart.position, _waveSettings.EnemyPrefab.transform.rotation);
+		enemyInstance.Init(_navMeshControl, _gameManager);
 		_enemy = enemyInstance;
 		enemyInstance.DestinationReached += FitnessTestFinished;
-		GameManager.Instance.RegisterEnemyUnit(enemyInstance);
-		enemyInstance.SetDestination(_waveSettings.Destination);
+		_gameManager.RegisterEnemyUnit(enemyInstance);
+		enemyInstance.SetDestination(_waveEnd.position);
 		CurrentState = GAState.WaitingForResult;
 	}
 
@@ -118,14 +137,14 @@ public class GeneticAlgorithm : MonoBehaviour
 	{
 		foreach (Node node in dna.Genes)
 		{
-			NodeManager.Instance.FillNode(node, Settings.Instance.DefaultTower);
+			_nodeManager.FillNode(node, Settings.Instance.DefaultTower, transform);
 		}
-		NavMeshControl.Instance.BakeNavMesh();
+		_navMeshControl.BakeNavMesh();
 	}
 
 	private void ClearField()
 	{
-		NodeManager.Instance.DepleteAllNodes();
+		_nodeManager.DepleteAllNodes();
 	}
 
 	private void CheckEnemyPath()
@@ -135,7 +154,7 @@ public class GeneticAlgorithm : MonoBehaviour
 
 		if (!_enemy.HasPath())
 		{
-			GameManager.Instance.UnregisterEnemyUnit(_enemy);
+			_gameManager.UnregisterEnemyUnit(_enemy);
 			Destroy(_enemy.gameObject);
 			_enemy = null;
 			FitnessTestFinished();

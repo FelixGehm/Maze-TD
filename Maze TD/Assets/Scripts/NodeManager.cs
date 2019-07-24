@@ -7,15 +7,15 @@ public class NodeManager : MonoBehaviour
 	[SerializeField]
 	private Color _highlightColor;
 
-	//Singleton
-	public static NodeManager Instance
-	{
-		get; private set;
-	}
+	////Singleton
+	//public static NodeManager Instance
+	//{
+	//	get; private set;
+	//}
 
 	private void Awake()
 	{
-		Instance = this;
+		//Instance = this;
 		Nodes = new List<Node>();
 		FilledNodes = new List<Node>();
 	}
@@ -38,6 +38,19 @@ public class NodeManager : MonoBehaviour
 
 
 		node.SetTower(t);
+		FilledNodes.Add(node);
+	}
+
+	public void FillNode(Node node, TowerSettings t, Transform parent)
+	{
+		if (node.Tower != null)
+		{
+			Debug.LogWarning("Cannot place 2 towers at the same node");
+			return;
+		}
+
+
+		node.SetTower(t, parent);
 		FilledNodes.Add(node);
 	}
 

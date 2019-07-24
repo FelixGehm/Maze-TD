@@ -15,14 +15,16 @@ public class Tower : MonoBehaviour
 	[SerializeField]
 	private TowerStats _stats;
 
+	private GameManager _gameManager;
 	private List<Enemy> _enemyUnits;
 
 	private float _turnSpeed = 10;
 	private Enemy _target;
 	private float _fireCountdown;
 
-	public void Init(TowerSettings settings)
+	public void Init(TowerSettings settings, GameManager gameManager)
 	{
+		_gameManager = gameManager;
 		_stats.Init(settings.Range, settings.FireRate, settings.Damage, settings.ProjectileSpeed, settings.AoERadius, settings.CCTime);
 		_projectilePrefab = settings.ProjectilePrefab;
 	}
@@ -34,7 +36,7 @@ public class Tower : MonoBehaviour
 
 	private void Start()
 	{
-		_enemyUnits = GameManager.Instance.EnemyUnits;
+		_enemyUnits = _gameManager.EnemyUnits;
 		InvokeRepeating("UpdateTarget", 0f, 0.1f);
 	}
 

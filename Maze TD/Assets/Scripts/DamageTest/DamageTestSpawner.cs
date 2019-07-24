@@ -8,6 +8,11 @@ public class DamageTestSpawner : MonoBehaviour
 {
 	public enum State { Running, Waiting, Starting }
 
+	[SerializeField]
+	private NavMeshControl _navMeshControl;
+	[SerializeField]
+	private GameManager _gameManager;
+
 	private WaveSettings _settings;
 
 	private Enemy _enemy;
@@ -17,6 +22,11 @@ public class DamageTestSpawner : MonoBehaviour
 	public int BestDmg { get; private set; }
 	public int LastDmg { get; private set; }
 
+	private void Reset()
+	{
+		_navMeshControl = GetComponent<NavMeshControl>();
+		_gameManager = GetComponent<GameManager>();
+	}
 
 	private void Start()
 	{
@@ -58,7 +68,8 @@ public class DamageTestSpawner : MonoBehaviour
 		Enemy enemyInstance = Instantiate(_settings.EnemyPrefab, _settings.SpawnPosition, _settings.EnemyPrefab.transform.rotation);
 		_enemy = enemyInstance;
 		enemyInstance.DestinationReached += CycleFinished;
-		GameManager.Instance.RegisterEnemyUnit(enemyInstance);
+		_gameManager.RegisterEnemyUnit(enemyInstance);
+		enemyInstance.Init(_navMeshControl, _gameManager);
 		enemyInstance.SetDestination(_settings.Destination);
 	}
 

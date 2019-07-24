@@ -13,6 +13,9 @@ public class Enemy : MonoBehaviour
 	[SerializeField]
 	private NavMeshAgent _agent;
 
+	private NavMeshControl _navMeshControl;
+	private GameManager _gameManager;
+
 	private Vector3 _destination;
 	private bool _hasDestination;
 	private bool _isCC = false;
@@ -22,6 +25,12 @@ public class Enemy : MonoBehaviour
 	public EnemyStats Stats
 	{
 		get { return _stats; }
+	}
+
+	public void Init(NavMeshControl navMeshControl, GameManager gameManager)
+	{
+		_navMeshControl = navMeshControl;
+		_gameManager = gameManager;
 	}
 
 	public void SetDestination(Vector3 destination)
@@ -69,7 +78,7 @@ public class Enemy : MonoBehaviour
 
 	private void Start()
 	{
-		NavMeshControl.Instance.OnNavMeshChanged += UpdateDestination;
+		_navMeshControl.OnNavMeshChanged += UpdateDestination;
 		_agent.speed = _stats.Speed;
 	}
 
@@ -84,14 +93,14 @@ public class Enemy : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		NavMeshControl.Instance.OnNavMeshChanged -= UpdateDestination;
-		GameManager.Instance.UnregisterEnemyUnit(this);
+		_navMeshControl.OnNavMeshChanged -= UpdateDestination;
+		_gameManager.UnregisterEnemyUnit(this);
 	}
 
 	private void OnDestinationReached()
 	{
 		DestinationReached?.Invoke();
-		PlayerStats.Instance.Hitpoints--;
+		//PlayerStats.Instance.Hitpoints--;
 		Destroy(gameObject);
 	}
 

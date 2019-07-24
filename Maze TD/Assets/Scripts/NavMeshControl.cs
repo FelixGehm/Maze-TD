@@ -6,17 +6,17 @@ using UnityEngine.AI;
 
 public class NavMeshControl : MonoBehaviour
 {
-	#region Singleton
-	public static NavMeshControl Instance
-	{
-		get; private set;
-	}
+	//#region Singleton
+	//public static NavMeshControl Instance
+	//{
+	//	get; private set;
+	//}
 
-	private void Awake()
-	{
-		Instance = this;
-	}
-	#endregion
+	//private void Awake()
+	//{
+	//	Instance = this;
+	//}
+	//#endregion
 
 	[SerializeField]
 	private NavMeshSurface _surface;

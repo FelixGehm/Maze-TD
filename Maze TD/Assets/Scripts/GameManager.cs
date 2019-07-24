@@ -5,14 +5,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 	#region Singleton and Init
-	public static GameManager Instance
-	{
-		get; private set;
-	}
+	//public static GameManager Instance
+	//{
+	//	get; private set;
+	//}
 
 	private void Awake()
 	{
-		Instance = this;
+		//Instance = this;
 		EnemyUnits = new List<Enemy>();
 	}
 	#endregion

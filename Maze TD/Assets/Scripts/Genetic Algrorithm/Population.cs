@@ -17,7 +17,7 @@ public class Population
 	public DNA BestGenes { get; private set; }
 	public DNA SecondBestGenes { get; private set; }
 
-	public Population(float mutationRate, int populationSize, int towers)
+	public Population(float mutationRate, int populationSize, int towers, List<Node> allNodes)
 	{
 		_mutationRate = mutationRate;
 		Pop = new List<DNA>();
@@ -26,7 +26,7 @@ public class Population
 
 		for (int i = 0; i < populationSize; i++)
 		{
-			Pop.Add(new DNA(towers));
+			Pop.Add(new DNA(towers, allNodes));
 		}
 
 		_random = new System.Random();

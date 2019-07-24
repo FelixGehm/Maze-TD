@@ -21,10 +21,17 @@ public class TowerSettings : ScriptableObject
 		return Instantiate(TowerPreviewPrefab, position, TowerPreviewPrefab.transform.rotation);
 	}
 
-	public Tower SpawnTower(Vector3 position, Quaternion rotation)
+	public Tower SpawnTower(Vector3 position, Quaternion rotation, GameManager gameManager)
 	{
 		Tower towerInstance = Instantiate(TowerPrefab, position, rotation);
-		towerInstance.Init(this);
+		towerInstance.Init(this, gameManager);
+		return towerInstance;
+	}
+
+	public Tower SpawnTower(Vector3 position, Quaternion rotation, GameManager gameManager, Transform parent)
+	{
+		Tower towerInstance = Instantiate(TowerPrefab, position, rotation, parent);
+		towerInstance.Init(this, gameManager);
 		return towerInstance;
 	}
 }

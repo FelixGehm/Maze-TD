@@ -11,10 +11,10 @@ public class DNA
 	private List<Node> _allNodes;
 
 	//For first Population
-	public DNA(int num)
+	public DNA(int num, List<Node> allNodes)
 	{
 		//init first population with random genes
-		_allNodes = NodeManager.Instance.Nodes;
+		_allNodes = allNodes;
 		Genes = new Node[num];
 		for (int i = 0; i < Genes.Length; i++)
 		{
@@ -24,10 +24,10 @@ public class DNA
 	}
 
 	//For further Pupulations
-	public DNA(Node[] newGenes)
+	public DNA(Node[] newGenes, List<Node> allNodes)
 	{
+		_allNodes = allNodes;
 		Genes = newGenes;
-		_allNodes = NodeManager.Instance.Nodes;
 	}
 
 	public DNA Crossover(DNA partner)
@@ -43,7 +43,7 @@ public class DNA
 			else
 				child[i] = partner.Genes[i];
 		}
-		DNA newDNA = new DNA(child);
+		DNA newDNA = new DNA(child, _allNodes);
 		return newDNA;
 	}
 
