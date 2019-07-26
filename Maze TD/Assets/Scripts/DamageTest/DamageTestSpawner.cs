@@ -13,6 +13,8 @@ public class DamageTestSpawner : MonoBehaviour
 	[SerializeField]
 	private GameManager _gameManager;
 
+	[SerializeField] private Transform _waveStart, _waveEnd;
+
 	private WaveSettings _settings;
 
 	private Enemy _enemy;
@@ -42,6 +44,7 @@ public class DamageTestSpawner : MonoBehaviour
 		switch (CurrentState)
 		{
 			case State.Running:
+				CheckEnemyPath();
 				break;
 			case State.Waiting:
 				if (Input.GetKeyUp(KeyCode.N))
@@ -55,6 +58,14 @@ public class DamageTestSpawner : MonoBehaviour
 		}
 	}
 
+	public void Initialise()
+	{
+		if (!(CurrentState == State.Waiting))
+			return;
+
+		CurrentState = State.Starting;
+	}
+
 	private void CycleFinished()
 	{
 		CurrentState = State.Waiting;
@@ -65,13 +76,26 @@ public class DamageTestSpawner : MonoBehaviour
 
 	private void SpawnEnemy()
 	{
-		Enemy enemyInstance = Instantiate(_settings.EnemyPrefab, _settings.SpawnPosition, _settings.EnemyPrefab.transform.rotation);
+		Enemy enemyInstance = Instantiate(_settings.EnemyPrefab, _waveStart.position, _settings.EnemyPrefab.transform.rotation);
 		_enemy = enemyInstance;
 		enemyInstance.DestinationReached += CycleFinished;
 		_gameManager.RegisterEnemyUnit(enemyInstance);
 		enemyInstance.Init(_navMeshControl, _gameManager);
-		enemyInstance.SetDestination(_settings.Destination);
+		enemyInstance.SetDestination(_waveEnd.position);
 	}
 
+	private void CheckEnemyPath()
+	{
+		if (_enemy == null)
+			return;
 
+		if (!_enemy.HasPath())
+		{
+			_gameManager.UnregisterEnemyUnit(_enemy);
+			Destroy(_enemy.gameObject);
+			_enemy = null;
+			CurrentState = State.Waiting;
+			LastDmg = 0;
+		}
+	}
 }

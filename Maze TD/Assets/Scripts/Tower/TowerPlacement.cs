@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class TowerPlacement : MonoBehaviour
 	private NavMeshControl _navMeshControl;
 	[SerializeField]
 	private NodeManager _nodeManager;
+
+	public Action OnTowerPlaced;
 
 	private TowerSettings _towerSettings;
 	private TowerPreview _towerPreviewInstance;
@@ -68,6 +71,7 @@ public class TowerPlacement : MonoBehaviour
 		{
 			_nodeManager.FillNode(_currentNode, _towerSettings);
 			_navMeshControl.BakeNavMesh();
+			OnTowerPlaced?.Invoke();
 		}
 		Destroy(_towerPreviewInstance.gameObject);
 		_towerPreviewInstance = null;

@@ -8,8 +8,10 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
 	
-	public void LoadScene()
+	public void LoadScene(string scene)
 	{
-		SceneManager.LoadScene("DamageTest");
+		SceneManager.LoadScene(scene);
 	}
+
+
 }
