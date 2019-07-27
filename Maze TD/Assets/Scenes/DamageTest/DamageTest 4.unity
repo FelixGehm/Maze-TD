@@ -8772,7 +8772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _towerPlacement: {fileID: 1135961020}
   _buildingPanel: {fileID: 1074656434}
-  _availableTowers: 5
+  _availableTowers: 30
   _nodeManager: {fileID: 1135961019}
 --- !u!114 &1135961019
 MonoBehaviour:

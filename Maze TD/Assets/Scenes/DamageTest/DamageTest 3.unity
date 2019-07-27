@@ -6390,7 +6390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _towerPlacement: {fileID: 1203537179}
   _buildingPanel: {fileID: 778580216}
-  _availableTowers: 5
+  _availableTowers: 20
   _nodeManager: {fileID: 1203537178}
 --- !u!114 &1203537178
 MonoBehaviour:

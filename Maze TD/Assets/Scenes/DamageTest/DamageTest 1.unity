@@ -897,7 +897,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _towerPlacement: {fileID: 167986084}
   _buildingPanel: {fileID: 1720735751}
-  _availableTowers: 5
+  _availableTowers: 8
   _nodeManager: {fileID: 167986086}
 --- !u!1001 &171336386
 PrefabInstance:
