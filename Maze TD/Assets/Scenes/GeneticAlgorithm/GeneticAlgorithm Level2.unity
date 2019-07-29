@@ -2568,6 +2568,7 @@ MonoBehaviour:
   _mutationRate: 0.01
   _populationSize: 50
   _nrOfTowers: 30
+  _nodes: 100
 --- !u!4 &2117803603
 Transform:
   m_ObjectHideFlags: 0

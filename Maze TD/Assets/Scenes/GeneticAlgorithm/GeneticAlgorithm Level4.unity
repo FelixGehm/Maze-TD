@@ -690,7 +690,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 698442513}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 5.42, y: 12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2563,12 +2563,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8296c3e37925f30469fff9f823257e42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _elementPrefab: {fileID: 7425258370356111858, guid: ca23ff423f59fb145a365df5f3a3f857,
+  _elementPrefab: {fileID: 7425258370356111858, guid: 6dfca85c903316340a104a9f8b69725d,
     type: 3}
   _mutationRate: 0.01
   _populationSize: 50
-  _nrOfTowers: 20
-  _nodes: 84
+  _nrOfTowers: 30
+  _nodes: 150
 --- !u!4 &2117803603
 Transform:
   m_ObjectHideFlags: 0
