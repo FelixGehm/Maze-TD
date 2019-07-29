@@ -2289,7 +2289,8 @@ MonoBehaviour:
   _generationTxt: {fileID: 727574664}
   _bestFitnessTxt: {fileID: 1995483750}
   _averageFitness: {fileID: 417125273}
-  _currentFitnessTxt: {fileID: 1312461831}
+  _bestFitnessGenerationTxt: {fileID: 1312461831}
+  _bestFitnessTimeTxt: {fileID: 1401189952}
 --- !u!114 &1796744022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2565,7 +2566,7 @@ MonoBehaviour:
   _elementPrefab: {fileID: 7425258370356111858, guid: 677e654e777749545b299eaacfb11fcd,
     type: 3}
   _mutationRate: 0.01
-  _populationSize: 150
+  _populationSize: 50
   _nrOfTowers: 30
 --- !u!4 &2117803603
 Transform:

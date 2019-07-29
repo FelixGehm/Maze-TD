@@ -44,9 +44,9 @@ namespace GeneticAlgorithmAdvanced
 			List<DNA> newPopulation = new List<DNA>();
 
 			newPopulation.Add(BestGenes);
-			newPopulation.Add(SecondBestGenes);
+			//newPopulation.Add(SecondBestGenes);
 
-			for (int i = 2; i < Pop.Count; i++)
+			for (int i = 1; i < Pop.Count; i++)
 			{
 				DNA parent1 = ChooseParent();
 				DNA parent2 = ChooseParent();

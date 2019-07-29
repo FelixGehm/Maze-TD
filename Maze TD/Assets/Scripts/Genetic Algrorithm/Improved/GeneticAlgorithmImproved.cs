@@ -14,15 +14,22 @@ namespace GeneticAlgorithmAdvanced
 		[SerializeField] private int _populationSize;
 		[SerializeField] private int _nrOfTowers;
 
+		[SerializeField]
+		private int _nodes = 100;
+
 		public Population Population { get; set; }
 		public GAState CurrentState { get; set; }
 		public bool IsRunning { get; set; }
 		public float BestFitness { get; set; }
 		public float AverageFitness { get; set; }
 		public int TestsFinished { get; set; }
+		public float BestFitnessTime { get; set; }
+		public int BestFintessGeneration { get; set; }
 
 		private List<Element> _elements;
 		private WaveSettings _waveSettings;
+
+		private float _startTime;
 
 		private void Start()
 		{
@@ -35,7 +42,13 @@ namespace GeneticAlgorithmAdvanced
 		private void Update()
 		{
 			if (Input.GetKeyUp(KeyCode.N))
-				Initialise();
+			{
+				//Initialise();
+				//Debug.Log(Population.Pop[0].Genes.Length);
+				foreach (int gene in Population.Pop[0].Genes)
+					Debug.Log(gene);
+			}
+
 
 
 			switch (CurrentState)
@@ -68,6 +81,7 @@ namespace GeneticAlgorithmAdvanced
 
 			_waveSettings = Settings.Instance.WaveSettings;
 			IsRunning = true;
+			_startTime = Time.time;
 		}
 
 		private void SpawnElements(Vector3 offset)
@@ -109,7 +123,12 @@ namespace GeneticAlgorithmAdvanced
 					float fitness = _elements[i].Fitness;
 					Population.Pop[i].Fitness = fitness;
 					if (fitness > BestFitness)
+					{
 						BestFitness = fitness;
+						BestFintessGeneration = Population.Generation;
+						BestFitnessTime = Time.time - _startTime;
+					}
+
 					fitnessSum += fitness;
 				}
 				AverageFitness = fitnessSum / _populationSize;
@@ -126,7 +145,7 @@ namespace GeneticAlgorithmAdvanced
 
 		private int FindNumberOfNodes()
 		{
-			return 100;
+			return _nodes;
 		}
 	}
 }
