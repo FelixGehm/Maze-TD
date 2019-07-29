@@ -22,8 +22,11 @@ namespace GeneticAlgorithmAdvanced
 		GeneticAlgorithmImproved _ga;
 		private WaveSettings _waveSettings;
 		private Enemy _enemyInstance;
+		private List<Tower> _towers;
+		private bool _agentRdy = false;
 
 		public float Fitness { set; get; }
+		public Enemy EnemyInstance { get { return _enemyInstance; } }
 
 		private bool _isTesting = false;
 
@@ -37,15 +40,26 @@ namespace GeneticAlgorithmAdvanced
 		private void Start()
 		{
 			_waveSettings = Settings.Instance.WaveSettings;
+			_towers = new List<Tower>();
 		}
 
 		private void Update()
 		{
+			if (_ga.CurrentState == GeneticAlgorithmImproved.GAState.WaitingForAgent)
+			{
+				if (_enemyInstance != null && _enemyInstance.HasPath() && !_agentRdy)
+				{
+					_ga.AgentsRdy++;
+					_agentRdy = true;
+				}
+
+			}
+
 			if (_isTesting && _ga.CurrentState == GeneticAlgorithmImproved.GAState.WaitingForResult)
 			{
 				CheckEnemyPath();
-				if (_framesStuck >= 20)
-					CancelTest();
+				//if (_framesStuck >= 200)
+				//	CancelTest();
 			}
 
 
@@ -53,27 +67,31 @@ namespace GeneticAlgorithmAdvanced
 			{
 				_isTesting = true;
 			}
-
 			else
 			{
 				_isTesting = false;
 				_framesStuck = 0;
 			}
-
 		}
 
 
 		public void PlaceTowers(int[] genes)
 		{
+			_towers.Clear();
 			foreach (Node node in _nodeManager.Nodes)
 			{
 				foreach (int g in genes)
 				{
 					if (node.Index == g)
+					{
 						_nodeManager.FillNode(node, Settings.Instance.DefaultTower, _towerParent);
+						_towers.Add(node.Tower);
+					}
 				}
 			}
+			ActivateTowers(false);
 			_navMeshControl.BakeNavMesh();
+			_agentRdy = false;
 		}
 
 		public void TestFitness()
@@ -83,6 +101,7 @@ namespace GeneticAlgorithmAdvanced
 			_enemyInstance.DestinationReached += FitnessTestFinished;
 			_gameManager.RegisterEnemyUnit(_enemyInstance);
 			_enemyInstance.SetDestination(_waveEnd.position);
+			_enemyInstance.Freeze();
 		}
 
 		private void FitnessTestFinished()
@@ -97,12 +116,24 @@ namespace GeneticAlgorithmAdvanced
 		//unities method HasPath() sometimes returns false while the agent actualy has a path. so i only cancel the test if the agent is stuck for multiple frames.
 		private void CheckEnemyPath()
 		{
+			//if (_enemyInstance == null)
+			//	return;
+
+			//if (!_enemyInstance.HasPath())
+			//{
+			//	_framesStuck++;
+			//}
+
 			if (_enemyInstance == null)
 				return;
 
 			if (!_enemyInstance.HasPath())
 			{
-				_framesStuck++;
+				Debug.Log("test canceled");
+				_gameManager.UnregisterEnemyUnit(_enemyInstance);
+				Destroy(_enemyInstance.gameObject);
+				_enemyInstance = null;
+				FitnessTestFinished();
 			}
 		}
 
@@ -130,6 +161,11 @@ namespace GeneticAlgorithmAdvanced
 		private void ClearField()
 		{
 			_nodeManager.DepleteAllNodes();
+		}
+		public void ActivateTowers(bool b)
+		{
+			foreach (var t in _towers)
+				t.Activate(b);
 		}
 	}
 }

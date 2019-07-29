@@ -22,6 +22,8 @@ public class Tower : MonoBehaviour
 	private Enemy _target;
 	private float _fireCountdown;
 
+	private bool _active = true;
+
 	public void Init(TowerSettings settings, GameManager gameManager)
 	{
 		_gameManager = gameManager;
@@ -42,6 +44,9 @@ public class Tower : MonoBehaviour
 
 	private void Update()
 	{
+		if (!_active)
+			return;
+
 		if (_target == null)
 			return;
 
@@ -97,6 +102,10 @@ public class Tower : MonoBehaviour
 		}
 	}
 
+	public void Activate (bool active)
+	{
+		_active = active;
+	}
 
 	private void OnDrawGizmosSelected()
 	{

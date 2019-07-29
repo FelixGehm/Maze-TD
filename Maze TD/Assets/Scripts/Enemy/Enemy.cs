@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
 	private Vector3 _destination;
 	private bool _hasDestination;
 	private bool _isCC = false;
+	private bool _isFrozen = false;
 
 	public Action DestinationReached;
 
@@ -70,6 +71,18 @@ public class Enemy : MonoBehaviour
 		return _agent.hasPath;
 	}
 
+	public void Freeze()
+	{
+		_agent.speed = 0;
+		_isFrozen = true;
+	}
+
+	public void Unfreeze()
+	{
+		_agent.speed = _stats.Speed;
+		_isFrozen = false;
+	}
+
 	private void Reset()
 	{
 		_stats = GetComponent<EnemyStats>();
@@ -80,6 +93,8 @@ public class Enemy : MonoBehaviour
 	{
 		_navMeshControl.OnNavMeshChanged += UpdateDestination;
 		_agent.speed = _stats.Speed;
+		if (_isFrozen)
+			_agent.speed = 0;
 	}
 
 	private void Update()

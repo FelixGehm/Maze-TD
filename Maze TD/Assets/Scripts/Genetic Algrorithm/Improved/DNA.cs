@@ -21,7 +21,7 @@ namespace GeneticAlgorithmAdvanced
 				while (DoesGeneExist(Genes, randomIndex))
 				{
 					randomIndex = UnityEngine.Random.Range(1, nodes + 1);
-					Debug.Log("while");
+					//Debug.Log("while");
 				}
 				Genes[i] = randomIndex;
 			}
@@ -50,7 +50,7 @@ namespace GeneticAlgorithmAdvanced
 				while (DoesGeneExist(child, newGene))
 				{
 					newGene = UnityEngine.Random.Range(1, Genes.Length + 1);
-					Debug.Log("while");
+					//Debug.Log("while");
 				}
 
 				child[i] = newGene;
@@ -69,7 +69,7 @@ namespace GeneticAlgorithmAdvanced
 					while (DoesGeneExist(Genes, newGene))
 					{
 						newGene = UnityEngine.Random.Range(1, Genes.Length + 1);
-						Debug.Log("while");
+						//Debug.Log("while");
 					}
 					Genes[i] = newGene;
 				}

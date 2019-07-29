@@ -6,7 +6,7 @@ namespace GeneticAlgorithmAdvanced
 {
 	public class GeneticAlgorithmImproved : MonoBehaviour
 	{
-		public enum GAState { PlaceTowers, TestFitness, WaitingForResult, NewGeneration, Idle }
+		public enum GAState { PlaceTowers, WaitingForAgent, TestFitness, WaitingForResult, NewGeneration, Idle }
 
 		[SerializeField] private Element _elementPrefab;
 
@@ -25,6 +25,7 @@ namespace GeneticAlgorithmAdvanced
 		public int TestsFinished { get; set; }
 		public float BestFitnessTime { get; set; }
 		public int BestFintessGeneration { get; set; }
+		public int AgentsRdy { get; set; }
 
 		private List<Element> _elements;
 		private WaveSettings _waveSettings;
@@ -60,6 +61,10 @@ namespace GeneticAlgorithmAdvanced
 				case GAState.TestFitness:
 					//Debug.Log("test fitness");
 					TestFitness();
+					break;
+				case GAState.WaitingForAgent:
+					//Debug.Log("place towers");
+					WaitingForAgent();
 					break;
 				case GAState.WaitingForResult:
 					//Debug.Log("waiting for result");
@@ -104,13 +109,29 @@ namespace GeneticAlgorithmAdvanced
 				_elements[i].PlaceTowers(Population.Pop[i].Genes);
 			}
 			CurrentState = GAState.TestFitness;
-		}
+		}		
 
 		private void TestFitness()
 		{
 			foreach (Element e in _elements)
 				e.TestFitness();
-			CurrentState = GAState.WaitingForResult;
+			AgentsRdy = 0;
+			CurrentState = GAState.WaitingForAgent;
+		}
+
+		private void WaitingForAgent()
+		{
+			if(AgentsRdy >= _populationSize)
+			{
+				foreach (var e in _elements)
+				{
+					e.EnemyInstance.Unfreeze();
+					e.ActivateTowers(true);
+				}
+				CurrentState = GAState.WaitingForResult;
+			}
+
+			//Debug.Log(AgentsRdy);
 		}
 
 		private void WaitingForResult()
