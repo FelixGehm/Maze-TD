@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Enemy Settings
   m_EditorClassIdentifier: 
   Speed: 2
-  MaxHitpoints: 200
+  MaxHitpoints: 50

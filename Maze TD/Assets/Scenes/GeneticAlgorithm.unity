@@ -8152,7 +8152,7 @@ MonoBehaviour:
   _nodeManager: {fileID: 1848575243}
   _gameManager: {fileID: 1848575245}
   _mutationRate: 0.01
-  _populationSize: 50
+  _populationSize: 10
   _nrOfTowers: 20
 --- !u!4 &1392581882
 Transform:

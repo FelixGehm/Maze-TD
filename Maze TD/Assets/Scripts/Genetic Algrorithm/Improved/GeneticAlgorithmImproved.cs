@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace GeneticAlgorithmAdvanced
 {
@@ -77,6 +78,9 @@ namespace GeneticAlgorithmAdvanced
 				case GAState.Idle:
 					break;
 			}
+
+			if (Input.GetKey(KeyCode.Escape))
+				SceneManager.LoadScene("GAMenu");
 		}
 
 		public void Initialise()

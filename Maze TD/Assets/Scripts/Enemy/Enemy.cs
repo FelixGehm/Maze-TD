@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
 	private bool _isFrozen = false;
 
 	public Action DestinationReached;
+	public Action OnDie;
 
 	public EnemyStats Stats
 	{
@@ -44,6 +45,8 @@ public class Enemy : MonoBehaviour
 	public void TakeDamage(int dmg)
 	{
 		_stats.TakeDamage(dmg);
+		if (_stats.Hitpoints <= 0)
+			OnDie?.Invoke();
 	}
 
 	public void Slow(float slowPercent, float slowTime)

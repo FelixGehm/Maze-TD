@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14b0ddb9fafa9f84e9e237fd059074db, type: 3}
-  m_Name: CC Tower
+  m_Name: Default Tower (classic)
   m_EditorClassIdentifier: 
-  TowerPrefab: {fileID: 2100859465461549943, guid: d731533dce1755646b193da7fc4c744b,
+  TowerPrefab: {fileID: 2100859465461549943, guid: 6f2c4d5ef8bed5d4a9b98c3229b4af3f,
     type: 3}
-  TowerPreviewPrefab: {fileID: 4312154183591426113, guid: ddd8c328e7523fc43b399acc90376486,
+  TowerPreviewPrefab: {fileID: 4312154183591426113, guid: b78d17d9551afbf4bab9cefe0430cf73,
     type: 3}
-  ProjectilePrefab: {fileID: 6851617692035496881, guid: 3061a9bc7fd68f34d8892e75e732a35c,
+  ProjectilePrefab: {fileID: 1821330523211111301, guid: d0dad9b2b5fc6b145a6dca826852f5ee,
     type: 3}
   Range: 5
   FireRate: 1
-  Damage: 0
-  ProjectileSpeed: 0
-  AoERadius: 5
-  CCTime: 2
+  Damage: 5
+  ProjectileSpeed: 100
+  AoERadius: 0
+  CCTime: 0

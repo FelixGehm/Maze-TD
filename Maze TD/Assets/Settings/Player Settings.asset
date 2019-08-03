@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Player Settings
   m_EditorClassIdentifier: 
   StartMoney: 100
-  StartLives: 100
+  StartHitpoints: 100

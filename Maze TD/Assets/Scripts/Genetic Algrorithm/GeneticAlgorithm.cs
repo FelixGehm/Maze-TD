@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GeneticAlgorithm : MonoBehaviour
 {
@@ -71,6 +72,9 @@ public class GeneticAlgorithm : MonoBehaviour
 			case GAState.Idle:
 				break;
 		}
+
+		if (Input.GetKey(KeyCode.Escape))
+			SceneManager.LoadScene("GAMenu");
 	}
 
 	public void Initilise()

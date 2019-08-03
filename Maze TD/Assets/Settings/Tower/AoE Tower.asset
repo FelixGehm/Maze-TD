@@ -18,9 +18,9 @@ MonoBehaviour:
     type: 3}
   ProjectilePrefab: {fileID: 5509330537888797648, guid: db03305aaa6e9fc438bff0eb4a7b5628,
     type: 3}
-  Range: 20
-  FireRate: 5
-  Damage: 1
-  ProjectileSpeed: 500
+  Range: 8
+  FireRate: 1
+  Damage: 2
+  ProjectileSpeed: 100
   AoERadius: 5
   CCTime: 0

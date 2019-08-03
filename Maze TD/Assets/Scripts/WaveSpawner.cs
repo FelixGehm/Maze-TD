@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WaveSpawner : MonoBehaviour, INotifyPropertyChanged
 {
@@ -10,6 +11,10 @@ public class WaveSpawner : MonoBehaviour, INotifyPropertyChanged
 	private NavMeshControl _navMeshControl;
 	[SerializeField]
 	private GameManager _gameManager;
+	[SerializeField]
+	private PlayerStats _playerStats;
+	[SerializeField]
+	private MoneyManager _moneyManager;
 
 	private WaveSettings _settings;
 	private int nrOfEnemies = 0;
@@ -64,6 +69,12 @@ public class WaveSpawner : MonoBehaviour, INotifyPropertyChanged
 		}
 
 		Countdown -= Time.deltaTime;
+
+		if (Input.GetKey(KeyCode.Escape))
+			SceneManager.LoadScene("MainMenu");
+
+		if (_playerStats.Hitpoints <= 0)
+			SceneManager.LoadScene("MainMenu");
 	}
 
 	private IEnumerator SpawnWave()
@@ -83,10 +94,22 @@ public class WaveSpawner : MonoBehaviour, INotifyPropertyChanged
 		_gameManager.RegisterEnemyUnit(enemyInstance);
 		enemyInstance.Init(_navMeshControl, _gameManager);
 		enemyInstance.SetDestination(_settings.Destination);
+		enemyInstance.DestinationReached += DamagePlayer;
+		enemyInstance.OnDie += GetMoney;
 	}
 
 	private void OnPropertyChanged(string name)
 	{
 		PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+	}
+
+	private void DamagePlayer()
+	{
+		_playerStats.Hitpoints--;
+	}
+
+	private void GetMoney()
+	{
+		_playerStats.Money++;
 	}
 }
